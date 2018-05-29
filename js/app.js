@@ -1,4 +1,3 @@
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -15,6 +14,7 @@
  */
 
 let card = document.getElementsByClassName('card');
+
 let cardsArray = [...card];  //create an array with all cards
 
 const deck = document.querySelector('.deck'); 
@@ -34,24 +34,6 @@ let moves = 0;
 
 
 //deck.innerHTML = ''; //empty deck   //.innerHtml represent the icons
-
-
-
-/*
- *  function to start the game 
- */
-
-
-function startGame() {
-    cardsArray = shuffle(cardsArray); //shuffle the cards
-    //loops over each card creates it's HTML and add it to the deck
-    for (let card of cardsArray){ //loop over cards array
-        card.classList.remove('show', 'open', 'match', 'disabled'); 
-        click(card); // add click event to each card
-  }
-
-}
-  
 /*
   *  Shuffle function
   */
@@ -73,11 +55,34 @@ function shuffle(array) {
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
+        
     }
-
+    
     return array;
+    
 }
 
+
+
+/*
+ *  function to start the game 
+ */
+
+
+function startGame() {
+    
+    let shuffleCards = shuffle(cardsArray); //shuffle the cards
+        shuffleCards.forEach(function(mix) {
+        deck.appendChild(mix);
+    });
+    for (let card of cardsArray){ //loop over cardsArray
+        card.classList.remove('show', 'open', 'match', 'disabled'); 
+        click(card); // add click event to each card
+     
+  }
+
+}
+  
 
   /*
   * Function Click - add event for each card
@@ -210,7 +215,7 @@ function rating() {
  * https://www.w3schools.com/jsref/met_loc_reload.asp
  */
 function gameRestart(){
-    location.reload();   //reload the page
+    location.reload();   //the easy way to reload the page
 }
 
 /*
